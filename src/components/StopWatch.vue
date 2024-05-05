@@ -1,7 +1,7 @@
 <template>
   <article class="stopwatch">
-    <div>{{ display }}</div>
-    <div>
+    <div class="display">{{ display }}</div>
+    <div class="buttons">
       <button @click="startStop">{{ isRunning ? "Stop" : "Start" }}</button>
       <button @click="reset">Reset</button>
     </div>
@@ -18,18 +18,19 @@ export default {
       seconds: 0,
       minutes: 0,
       hours: 0,
+      timer: null,
     };
   },
-  mounted() {
-    if (this.start) {
+  mounted(){
+    if(this.start){
       this.startStop();
     }
   },
   props: {
     start: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     display() {
@@ -66,13 +67,13 @@ export default {
       if (this.milliseconds >= 1000) {
         this.seconds++;
         this.milliseconds -= 1000;
-      }
-      if (this.seconds === 60) {
-        this.seconds = 0;
-        this.minutes++;
-        if (this.minutes === 60) {
-          this.minutes = 0;
-          this.hours++;
+        if (this.seconds === 60) {
+          this.seconds = 0;
+          this.minutes++;
+          if (this.minutes === 60) {
+            this.minutes = 0;
+            this.hours++;
+          }
         }
       }
     },
@@ -85,22 +86,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.stopwatch {
+.stopwatch{
   width: 60%;
 }
 
-.stopwatch div {
+.stopwatch .display{
   font-size: 2rem;
   font-weight: bold;
-  padding: 10px;
+  padding: 10px; 
   border: 2px solid #333;
   border-radius: 10px;
   background-color: #f8f8f8;
   margin-bottom: 20px;
 }
 
-.stopwatch div + div {
+.stopwatch .buttons {
   display: flex;
   justify-content: space-around;
 }
+
 </style>
